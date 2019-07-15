@@ -15,4 +15,4 @@ Options:
 
 Use this if you want to run `codeovertime` on a series of repositories and aggregate the results.
 
-Ideally this would be run in a clean directory for neatness. Fill in the repositories you want to use and run the script. A series of JSON files will be output to the location the script was run from.
+Ideally this would be run in a clean directory for neatness. Otherwise you have to manually `git pull` all the repos back up to date. Fill in the repositories you want to use and run the script. A series of JSON files will be output to the location the script was run from.
