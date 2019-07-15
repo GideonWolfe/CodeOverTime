@@ -8,4 +8,5 @@ Run `codeovertime` from any git repository and it will find the last commit of e
 Options:
 
 -g, --graph: If gnuplot is installed, it will outplut a plot of the data to the terminal
+
 -j, --json: The program will output a json object containing the data
