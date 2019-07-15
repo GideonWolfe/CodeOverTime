@@ -1,4 +1,4 @@
-#!/bin/bash
+#/bin/bash
 
 year=$(date +'%Y')
 declare -A VALIDS
@@ -32,25 +32,72 @@ do
 done
 
 # Print results
-rm results.txt
 for i in "${!DATA[@]}"
 do
     year=$i
     lines=${DATA[$i]}
     echo "$year : $lines"
-    echo "$year $lines" >> results.txt
 done
 
-if which gnuplot >> /dev/null;
-then
-        gnuplot <<- EOF
-                set xlabel "Year"
-                set ylabel "Lines of Code"
-                set title "Code over time"
-                set terminal dumb
-                plot "results.txt" with points
-	EOF
-else
-        echo "install gnuplot to get a graph"
-fi
-rm results.txt
+# Do we want JSON output?
+for arg in "$@"
+do
+    if [ "$arg" == "--json" ] || [ "$arg" == "-j" ]
+    then
+	filename=${PWD##*/}
+	touch $filename.json
+
+	# Start the JSON file
+	echo "{
+	   "\"$filename"\": [
+
+	      { " >> $filename.json
+
+	for i in "${!DATA[@]}"
+
+	# Fill in the results
+	do
+	    year=$i
+	    lines=${DATA[$i]}
+	    echo "         \"$year\":\"$lines\"," >> $filename.json
+	done
+	# Remove trailing comma
+	sed -i '$ s/.$//' $filename.json 
+
+	# Finish JSON file
+	echo " 
+	      }
+	   ]
+	} " >> $filename.json
+    fi
+done
+
+# Do we want a graph?
+for arg in "$@"
+do	
+    if [ "$arg" == "--graph" ] || [ "$arg" == "-g" ]
+    then
+	
+	if which gnuplot >> /dev/null;
+	then
+	    touch results.txt
+	    for i in "${!DATA[@]}"
+	    do
+    		year=$i
+    		lines=${DATA[$i]}
+    		echo "$year $lines" >> results.txt
+	    done
+
+	    gnuplot <<- EOF
+		set xlabel "Year"
+	        set ylabel "Lines of Code"
+	        set title "Code over time"
+	        set terminal dumb
+	        plot "results.txt" with points
+		EOF
+	    rm results.txt
+	else
+		echo "install gnuplot to get a graph"
+	fi
+    fi
+done
