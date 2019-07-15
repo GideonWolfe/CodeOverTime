@@ -48,10 +48,9 @@ do
 	touch $filename.json
 
 	# Start the JSON file
-	echo "{
-	   "\"$filename"\": [
-
-	      { " >> $filename.json
+	echo "{" >> $filename.json
+        echo "  \"$filename\": [" >> $filename.json
+        echo "    {" >> $filename.json
 
 	for i in "${!DATA[@]}"
 
@@ -59,16 +58,16 @@ do
 	do
 	    year=$i
 	    lines=${DATA[$i]}
-	    echo "         \"$year\":\"$lines\"," >> $filename.json
+	    echo "      \"$year\":\"$lines\"," >> $filename.json
 	done
 	# Remove trailing comma
 	sed -i '$ s/.$//' $filename.json 
 
 	# Finish JSON file
-	echo " 
-	      }
-	   ]
-	} " >> $filename.json
+	echo "    }" >> $filename.json
+        echo "  ]" >> $filename.json
+	echo "}" >> $filename.json
+
     fi
 done
 
