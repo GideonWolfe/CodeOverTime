@@ -10,7 +10,7 @@ startyear=$(git log --reverse | head -3 | tail -n 1 | awk '{print $6}')
 for i in `seq $startyear $year`;
 do    
         
-    # extrace the commit ID for the last commit of the year
+    # extract the commit ID for the last commit of the year
     COMMIT="$(git log --oneline --until=$i-12-31 | awk '{print $1}' | head -2 | tail -n 1)"
     VALIDS+=([$i]=$COMMIT)
 done
