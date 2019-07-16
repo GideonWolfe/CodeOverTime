@@ -9,8 +9,6 @@ declare -a REPOSITORIES
 
 # Fill in your repositories here
 REPOSITORIES=(
-'https://github.com/CSNW/rooster'
-'https://github.com/CSNW/gsr'
 )
 
 #Clone all the repositories
