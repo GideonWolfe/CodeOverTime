@@ -9,10 +9,11 @@ declare -a REPOSITORIES
 
 # Fill in your repositories here
 REPOSITORIES=(
-''
+'https://github.com/CSNW/rooster'
+'https://github.com/CSNW/gsr'
 )
 
-# Clone all the repositories
+#Clone all the repositories
 for i in "${REPOSITORIES[@]}"
 do
 	git clone $i
@@ -23,7 +24,7 @@ done
 for dir in */
 do
 	cd "$dir"
-	mv ${dir%/}.json ..
 	codeovertime -j
+	mv ${dir%/}.json ..
 	cd ..
 done
