@@ -13,10 +13,10 @@ REPOSITORIES=(
 )
 
 # Clone all the repositories
-#for i in "${REPOSITORIES[@]}"
-#do
-#	git clone $i
-#done
+for i in "${REPOSITORIES[@]}"
+do
+	git clone $i
+done
 
 # For every directory calculate the lines
 # and then output a JSON to the root directory
